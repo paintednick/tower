@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://cuju67r61l34"]
+
+[ext_resource type="Script" uid="uid://btawx2m5xbhaw" path="res://towers/pebble_launcher.gd" id="1_q1e7x"]
+[ext_resource type="Texture2D" uid="uid://ws0aewyjqfkv" path="res://towers/Pebble Launcher.png" id="2_y8624"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_juyql"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fmfdp"]
+size = Vector2(44, 33)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3gk37"]
+radius = 132.03409
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q1e7x"]
+bg_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 450
+corner_radius_top_right = 450
+corner_radius_bottom_right = 450
+corner_radius_bottom_left = 450
+
+[node name="pebble launcher" type="StaticBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_juyql")
+script = ExtResource("1_q1e7x")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1.9073486e-06, 1.9073486e-06)
+rotation = 1.5707964
+scale = Vector2(0.5876409, 0.54457206)
+texture = ExtResource("2_y8624")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_fmfdp")
+
+[node name="Aim" type="Marker2D" parent="."]
+position = Vector2(24, 0)
+
+[node name="Tower" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tower"]
+shape = SubResource("CircleShape2D_3gk37")
+
+[node name="BulletContainer" type="Node" parent="."]
+
+[node name="area" type="Panel" parent="."]
+modulate = Color(0, 0, 0, 0.3137255)
+offset_left = -130.0
+offset_top = -132.0
+offset_right = 130.0
+offset_bottom = 132.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_q1e7x")
+
+[connection signal="body_entered" from="Tower" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Tower" to="." method="_on_area_2d_body_exited"]

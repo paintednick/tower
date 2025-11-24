@@ -1,34 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://ljggaeh6wcbl"]
+[gd_scene load_steps=3 format=3 uid="uid://ljggaeh6wcbl"]
 
-[ext_resource type="Texture2D" uid="uid://chmake2nf565t" path="res://path-placeholder.png" id="1_epypp"]
-[ext_resource type="Script" uid="uid://qnk8x8si10y5" path="res://path_follow_2d.gd" id="2_0hol4"]
-[ext_resource type="Texture2D" uid="uid://cnxo3dxrtyiyn" path="res://New Piskel (1).png" id="3_epypp"]
+[ext_resource type="Texture2D" uid="uid://cgxbvlpbfb28d" path="res://MAP.png" id="1_epypp"]
+[ext_resource type="Script" uid="uid://ctwgebj1fpsu5" path="res://path_spawner.gd" id="2_0e48y"]
 
-[sub_resource type="Curve2D" id="Curve2D_q6r6c"]
-bake_interval = 46.37
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, -16, 490, 0, 0, 0, 0, 318, 489, 0, 0, 0, 0, 324, 228, 0, 0, 0, 0, 824, 226, 0, 0, 0, 0, 827, 423, 0, 0, 0, 0, 1152, 426)
-}
-point_count = 6
+[node name="main" type="Node2D"]
 
-[node name="Node2D" type="Node2D"]
-
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-position = Vector2(576, 324)
-scale = Vector2(36, 20.25)
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(576.00006, 324)
+scale = Vector2(1.1520001, 1.2960001)
 texture = ExtResource("1_epypp")
 
-[node name="Path2D" type="Path2D" parent="."]
-curve = SubResource("Curve2D_q6r6c")
+[node name="path spawner" type="Node2D" parent="."]
+script = ExtResource("2_0e48y")
 
-[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
-position = Vector2(-14.99701, 490.997)
-rotation = -0.002994003
-h_offset = 1.0
-v_offset = 1.0
-script = ExtResource("2_0hol4")
+[node name="Timer" type="Timer" parent="path spawner"]
+wait_time = 0.5
+autostart = true
 
-[node name="Sprite2D" type="Sprite2D" parent="Path2D/PathFollow2D"]
-position = Vector2(-1.9999948, -1.0029962)
-scale = Vector2(3.059252, 2.6771333)
-texture = ExtResource("3_epypp")
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(578, 323)
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+
+[connection signal="timeout" from="path spawner/Timer" to="path spawner" method="_on_timer_timeout"]

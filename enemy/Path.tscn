@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfqdyx1vr0t1b"]
+
+[ext_resource type="PackedScene" uid="uid://bf232i3q5nkle" path="res://enemy/Enemy Camo Ghost.tscn" id="1_wrond"]
+
+[sub_resource type="Curve2D" id="Curve2D_epypp"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 15, 374, 0, 0, 0, 0, 197, 368, 0, 0, 0, 0, 214, 104, 0, 0, 0, 0, 644, 84, 0, 0, 0, 0, 653, 307, 0, 0, 0, 0, 297, 318, 0, 0, 0, 0, 278, 563, 0, 0, 0, 0, 905, 515, 0, 0, 0, 0, 887, 216, 0, 0, 0, 0, 1108, 230)
+}
+point_count = 10
+
+[node name="Path2D" type="Path2D"]
+curve = SubResource("Curve2D_epypp")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2(15, 374)
+rotation = -0.0329551
+loop = false
+
+[node name="Enemy Camo Ghost" parent="PathFollow2D" instance=ExtResource("1_wrond")]
+position = Vector2(2.3841858e-07, 1.1920929e-07)
+rotation = 0.0329551
+scale = Vector2(1.0000001, 1.0000001)

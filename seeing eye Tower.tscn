@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvmtquw2euwnn"]
+
+[ext_resource type="Texture2D" uid="uid://n2ufxamn053r" path="res://towers/Camo seeing tower.png" id="1_1k8vn"]
+
+[sub_resource type="GDScript" id="GDScript_1k8vn"]
+script/source = "extends Panel
+
+@onready var tower = preload(\"res://towers/Seeing Eye.tscn\")
+var currTile
+
+func _on_gui_input(event: InputEvent) -> void:
+	var tempTower = tower.instantiate()
+	if event is InputEventMouseButton and event.button_mask == 1:
+		#left click down
+		add_child(tempTower)
+		tempTower.global_position = event.global_position
+		tempTower.process_mode = Node.PROCESS_MODE_DISABLED
+	elif event is InputEventMouseMotion and event.button_mask == 1:
+		get_child(1).global_position = event.global_position
+		#left click down drag
+		
+	elif event is InputEventMouseButton and event.button_mask == 0:
+		get_child(1).queue_free()
+		var path = get_node(\"../../../../../../Towers\")
+		
+		path.add_child(tempTower)
+		tempTower.global_position = event.global_position
+		tempTower.get_node(\"area\").hide()
+"
+
+[node name="Panel" type="Panel"]
+custom_minimum_size = Vector2(80, 80)
+offset_right = 47.0
+offset_bottom = 90.0
+script = SubResource("GDScript_1k8vn")
+
+[node name="CamoSeeingTower" type="Sprite2D" parent="."]
+position = Vector2(35, 44)
+texture = ExtResource("1_1k8vn")
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
